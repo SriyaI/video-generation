@@ -9,15 +9,14 @@ interface WeatherEntry {
   weather: { main: string }[];
 }
 
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  let city = searchParams.get("city") || "Delhi,IN";
+  const city = searchParams.get("city") || "Delhi,IN";
   const API_KEY = process.env.API_KEY;
   if (!API_KEY) {
     return new Response(
       JSON.stringify({ error: "API_KEY environment variable not set" }),
-      { status: 500 }
+      { status: 500 },
     );
   }
   // 1️⃣ Get geo coordinates (try plain city, then with ",IN" if empty)
